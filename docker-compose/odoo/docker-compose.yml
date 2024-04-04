@@ -1,0 +1,20 @@
+version: '3.3'
+services:
+    odoo:
+        container_name: odoo15
+        image: odoo:@
+        tty: true
+        networks:
+            - "nico"
+        ports:
+            - "8069:8069"
+        volumes:
+            - /home/user/config/:/etc/odoo
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.odoo.rule=Host(`odoo.localhost`)"
+            - "traefik.http.routers.odoo.entrypoints=web"
+
+networks:
+  nico:
+    name: "nico"
